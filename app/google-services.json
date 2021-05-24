@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "644073235777",
+    "project_id": "music-dd023",
+    "storage_bucket": "music-dd023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644073235777:android:933b0e993bca9fe7b92dc0",
+        "android_client_info": {
+          "package_name": "com.risako070310.music"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644073235777-hh0aqv60luaqrrbm5blogi4l21qs7q2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhzaQWn2ihYEWpmtuewzidIfU0R9bJPUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644073235777-hh0aqv60luaqrrbm5blogi4l21qs7q2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
