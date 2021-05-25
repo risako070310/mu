@@ -5,17 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_name.*
 
 class NameFragment : Fragment() {
 
     private val name: String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_name, container, false)
     }
 
@@ -23,10 +24,7 @@ class NameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         nextButton.setOnClickListener {
-            val chooseFragment = ChooseFragment()
-            val transaction = fragmentManager?.beginTransaction()
-            transaction?.add(R.id.fragment_container, chooseFragment)
-            transaction?.commit()
+            findNavController().navigate(R.id.name_to_choose)
         }
     }
 }

@@ -16,14 +16,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val nameFragment = NameFragment()
-
-        if (savedInstanceState == null) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.fragment_container, nameFragment)
-            transaction.commit()
-        }
-
 //        val userData: SharedPreferences = getSharedPreferences("userId", MODE_PRIVATE)
 //
 //        val user = hashMapOf(
