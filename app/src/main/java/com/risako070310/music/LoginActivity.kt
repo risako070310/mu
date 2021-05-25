@@ -16,28 +16,36 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val userData: SharedPreferences = getSharedPreferences("userId", MODE_PRIVATE)
+        val nameFragment = NameFragment()
 
-        val user = hashMapOf(
-            "user-name" to "とぽ",
-            "song" to "はしりがき",
-            "artist" to "マカロニえんぴつ",
-            "message" to "hogehoge",
-            "songURL" to "https://open.spotify.com/track/7CVJWpredjz2mIM9crW1Xo?si=e9a67d45721a4d9b"
-        )
+        if (savedInstanceState == null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_container, nameFragment)
+            transaction.commit()
+        }
 
-        db.collection("users")
-            .add(user)
-            .addOnSuccessListener { document ->
-                val editor = userData.edit()
-                editor.putString("user", document.id)
-                editor.apply()
-                Toast.makeText(this,"成功", Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }.addOnFailureListener {
-                Toast.makeText(this, "失敗", Toast.LENGTH_SHORT).show()
-            }
+//        val userData: SharedPreferences = getSharedPreferences("userId", MODE_PRIVATE)
+//
+//        val user = hashMapOf(
+//            "user-name" to "とぽ",
+//            "song" to "はしりがき",
+//            "artist" to "マカロニえんぴつ",
+//            "message" to "hogehoge",
+//            "songURL" to "https://open.spotify.com/track/7CVJWpredjz2mIM9crW1Xo?si=e9a67d45721a4d9b"
+//        )
+//
+//        db.collection("users")
+//            .add(user)
+//            .addOnSuccessListener { document ->
+//                val editor = userData.edit()
+//                editor.putString("user", document.id)
+//                editor.apply()
+//                Toast.makeText(this,"成功", Toast.LENGTH_SHORT).show()
+//
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//            }.addOnFailureListener {
+//                Toast.makeText(this, "失敗", Toast.LENGTH_SHORT).show()
+//            }
     }
 }
