@@ -5,10 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_choose.*
+
 class ChooseFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,5 +20,13 @@ class ChooseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        nextButton.setOnClickListener {
+//            val songName = songEditText.text.toString()
+            val songId = songEditText.text.toString().substring(31, 53)
+            text.text = songId
+            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to songId)
+            findNavController().navigate(R.id.choose_to_song, bundle)
+        }
     }
 }

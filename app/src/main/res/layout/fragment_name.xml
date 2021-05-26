@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NameFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/nextButton"
         android:text="次へ"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="183dp"
         tools:ignore="MissingConstraints" />

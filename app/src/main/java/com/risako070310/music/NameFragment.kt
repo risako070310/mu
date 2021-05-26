@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_name.*
 
 class NameFragment : Fragment() {
-
-    private val name: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +23,9 @@ class NameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         nextButton.setOnClickListener {
-            findNavController().navigate(R.id.name_to_choose)
+            val name = nameEditText.text.toString()
+            val bundle = bundleOf("name" to name)
+            findNavController().navigate(R.id.name_to_choose, bundle)
         }
     }
 }
