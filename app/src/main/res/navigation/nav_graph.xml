@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nameFragment">
+
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.risako070310.music.NameFragment"
+        tools:layout="@layout/fragment_name" >
+        <action
+            android:id="@+id/name_to_choose"
+            app:destination="@id/chooseFragment"/>
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="name" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseFragment"
+        android:name="com.risako070310.music.ChooseFragment"
+        tools:layout="@layout/fragment_choose" >
+        <action
+            android:id="@+id/choose_to_song"
+            app:destination="@id/songFragment" />
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="name" />
+        <argument
+            android:name="songId"
+            app:argType="string"
+            android:defaultValue="id" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="com.risako070310.music.SongFragment"
+        tools:layout="@layout/fragment_song" >
+        <action
+            android:id="@+id/song_to_comment"
+            app:destination="@id/commentFragment"/>
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="name" />
+        <argument
+            android:name="songId"
+            app:argType="string"
+            android:defaultValue="id" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.risako070310.music.CommentFragment"
+        tools:layout="@layout/fragment_comment" >
+
+    </fragment>
+
+
+</navigation>
