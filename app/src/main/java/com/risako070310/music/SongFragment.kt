@@ -53,7 +53,7 @@ class SongFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to "")
+            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to songId)
             findNavController().navigate(R.id.song_to_comment, bundle)
         }
     }
