@@ -35,19 +35,17 @@ class SongFragment : Fragment() {
             .create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.song.link/v1-alpha.1/")
+            .baseUrl("https://api.spotify.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        val musicService = retrofit.create(MusicService::class.java)
+        val musicService = retrofit.create(MusicGet::class.java)
         runBlocking{
             runCatching {
                 musicService.getMusic(songId!!)
             }
         }.onSuccess {
-            songTitle.text = it.title
-            artistName.text = it.artist
-            jacketView.load(it.imageURL)
+
         }.onFailure {
             Toast.makeText( context, "失敗してるよ？？？？？？？", Toast.LENGTH_LONG).show()
         }
