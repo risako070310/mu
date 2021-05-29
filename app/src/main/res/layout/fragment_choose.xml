@@ -4,39 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ChooseFragment">
+    tools:context=".ChooseFragment"
+    android:background="@color/bg_gray">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/songEditText"
-        android:ems="30"
-        tools:layout_editor_absoluteY="87dp"
-        tools:ignore="MissingConstraints" />
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.42">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/songEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:ems="15"
+            android:hint="曲名を入力"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/resultView"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="200dp"
-        tools:ignore="MissingConstraints"  />
+        app:layout_constraintTop_toBottomOf="@id/textBox"
+        app:layout_constraintStart_toStartOf="@id/textBox"
+        app:layout_constraintEnd_toEndOf="@id/textBox" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:id="@+id/nextButton"
         android:text="次へ"
-        app:layout_constraintTop_toBottomOf="@id/songEditText"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="400dp"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text"
-        app:layout_constraintTop_toBottomOf="@id/nextButton"
-        tools:ignore="MissingConstraints" />
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue_dark"
+        app:cornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@id/resultView"
+        app:layout_constraintStart_toStartOf="@id/textBox"
+        app:layout_constraintEnd_toEndOf="@id/textBox"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,9 +22,6 @@ class ChooseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         nextButton.setOnClickListener {
-//            val songName = songEditText.text.toString()
-//            val songId = songEditText.text.toString().substring(31, 53)
-//            text.text = songId
             val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to "aaa")
             findNavController().navigate(R.id.choose_to_song, bundle)
         }
