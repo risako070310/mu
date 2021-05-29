@@ -18,6 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ChooseFragment : Fragment() {
 
+    private var token = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,25 +30,37 @@ class ChooseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gson = GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .create()
+        val gson = GsonBuilder().create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.spotify.com")
+            .baseUrl("https://api.spotify.com/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
+
+        val requestToken = retrofit.create(TokenRequest::class.java)
+        runBlocking{
+            runCatching {
+                requestToken.getToken("client_credentials")
+            }.onSuccess{
+                token = it
+                Log.d("token-result",it)
+            }.onFailure {
+                Log.d("token-error", it.message.toString())
+            }
+        }
 
         val musicService = retrofit.create(MusicSearch::class.java)
 
         songEditText.doOnTextChanged { text, _, _, _ ->
-            runBlocking{
-                runCatching {
-                    musicService.searchMusic(text!!.toString())
-                }.onSuccess{
-                    Log.d("result",it.toString())
-                }.onFailure {
-                    Log.d("error", it.message.toString())
+            if(text != null) {
+                runBlocking {
+                    runCatching {
+                        musicService.searchMusic(text.toString(), "track", 5)
+                    }.onSuccess {
+                        Log.d("result", it.toString())
+                    }.onFailure {
+                        Log.d("error", it.message.toString())
+                    }
                 }
             }
         }

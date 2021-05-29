@@ -2,12 +2,17 @@ package com.risako070310.music
 
 import com.google.gson.annotations.SerializedName
 
+
+data class Data(
+    @SerializedName("tracks") val tracks: Tracks
+)
+
 data class Tracks(
-    @SerializedName("items") val items: Items
+    val items: List<Items>
 )
 
 data class Items(
-    @SerializedName("albums") val albums: List<Album>
+    @SerializedName("albums") val album: Album
 )
 
 data class Album(
