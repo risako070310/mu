@@ -12,7 +12,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val userData: SharedPreferences = getSharedPreferences("userId", MODE_PRIVATE)
-        val userId = userData.getString("userId", "hogehoge")
+        val userId = userData.getString("user", "hogehoge")
 
         if (userId != null && userId != "hogehoge") {
             val intent = Intent(this, MainActivity::class.java)
