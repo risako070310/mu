@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="name"
         android:textSize="28sp"
         android:fontFamily="sans-serif-black"
+        tools:text="Name"
         app:layout_constraintBottom_toTopOf="@id/card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,8 +43,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-black"
-                android:text="SongTitle"
                 android:textSize="24sp"
+                tools:text="SongTitle"
                 app:layout_constraintBottom_toTopOf="@id/artistView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,8 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:fontFamily="sans-serif-black"
-                android:text="Artist"
-                android:textSize="20dp"
+                tools:text="Artist"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/songView" />
 
@@ -96,9 +96,9 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="sans-serif-black"
-            android:text="comment"
+            tools:text="comment"
             android:textColor="@color/blue_primary"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
