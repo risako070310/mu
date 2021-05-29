@@ -15,6 +15,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_comment.*
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class CommentFragment : Fragment() {
 
@@ -38,6 +39,8 @@ class CommentFragment : Fragment() {
         val spotifyURL = "https://open.spotify.com/track/4rVpueOWFM9jUjZSWt1eNu?si=g19PvA_8SpSTxJYkXif_-Q"
 
         nextButton.setOnClickListener {
+            val localDateTime = LocalDateTime.now()
+            val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
             val user = hashMapOf(
                 "user-name" to arguments?.getString("name"),
                 "song" to song,
@@ -45,7 +48,7 @@ class CommentFragment : Fragment() {
                 "message" to commentEditText.text.toString(),
                 "imageURL" to imageURL,
                 "spotifyURL" to spotifyURL,
-                "updateTime" to LocalDateTime.now()
+                "updateTime" to localDateTime.format(dtf)
             )
 
             db.collection("users")
