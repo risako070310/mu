@@ -38,12 +38,11 @@ class UserFragment : Fragment() {
             .addOnCompleteListener {
                 val user = it.result
                 if(user != null && user.data != null){
-                    nameView.text = user.data?.get("user-name").toString()
+                    nameView.text = user.data?.get("name").toString()
                     songView.text = user.data?.get("song").toString()
                     artistView.text = user.data?.get("artist").toString()
-                    songImageView.load(user.data!!["imageURl"].toString())
-                    Picasso.get().load(user.data!!["imageURl"].toString()).resize(100,100).into(songImageView)
-                    commentText.text = user.data?.get("message").toString()
+                    songImageView.load(user.data!!["imageURL"].toString())
+                    commentText.text = user.data?.get("comment").toString()
                 }
 
             }

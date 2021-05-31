@@ -5,4 +5,6 @@
     <color name="blue_primary">#FF7BA1EB</color>
     <color name="black">#FF707070</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_dark">#FF6C6C6C</color>
+    <color name="text_light">#FF898989</color>
 </resources>
