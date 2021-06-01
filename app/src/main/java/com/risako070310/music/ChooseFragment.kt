@@ -2,11 +2,13 @@ package com.risako070310.music
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_choose.*
 import kotlinx.coroutines.runBlocking
@@ -35,7 +37,6 @@ class ChooseFragment : Fragment() {
         val gson = GsonBuilder().create()
 
         val client = OkHttpClient()
-        client.interceptors().add(RawJsonInterceptor())
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.spotify.com/")
@@ -71,13 +72,10 @@ class ChooseFragment : Fragment() {
             }
         }
 
-//        nextButton.setOnClickListener {
-////            val songName = songEditText.text.toString()
-//            val songId = songEditText.text.toString().substring(31, 53)
-//            text.text = songId
-//            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to songId)
-//            findNavController().navigate(R.id.choose_to_song, bundle)
-//        }
+        nextButton.setOnClickListener {
+            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to "aaa")
+            findNavController().navigate(R.id.choose_to_song, bundle)
+        }
     }
 }
 
