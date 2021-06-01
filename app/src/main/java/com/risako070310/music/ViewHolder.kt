@@ -5,10 +5,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val nameView: TextView = itemView.findViewById(R.id.nameContentView)
-    val songView: TextView = itemView.findViewById(R.id.songContentView)
-    val artistView: TextView = itemView.findViewById(R.id.artistNameView)
-    val commentView: TextView = itemView.findViewById(R.id.commentView)
-    val imageView: ImageView = itemView.findViewById(R.id.jacketContentView)
+class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
+    val nameView: TextView = view.findViewById(R.id.nameContentView)
+    val songView: TextView = view.findViewById(R.id.songContentView)
+    val artistView: TextView = view.findViewById(R.id.artistNameView)
+    val commentView: TextView = view.findViewById(R.id.commentView)
+    val imageView: ImageView = view.findViewById(R.id.jacketContentView)
 }
