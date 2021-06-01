@@ -42,12 +42,12 @@ class CommentFragment : Fragment() {
             val localDateTime = LocalDateTime.now()
             val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
             val user = hashMapOf(
-                "user-name" to arguments?.getString("name"),
+                "name" to arguments?.getString("name"),
                 "song" to song,
                 "artist" to artist,
-                "message" to commentEditText.text.toString(),
+                "comment" to commentEditText.text.toString(),
                 "imageURL" to imageURL,
-                "spotifyURL" to spotifyURL,
+                "songURL" to spotifyURL,
                 "updateTime" to localDateTime.format(dtf)
             )
 
@@ -65,6 +65,7 @@ class CommentFragment : Fragment() {
 
                     val intent = Intent(this.context, MainActivity::class.java)
                     startActivity(intent)
+                    requireActivity().finish()
                 }.addOnFailureListener {
                     Toast.makeText(this.context, "失敗", Toast.LENGTH_SHORT).show()
                 }
