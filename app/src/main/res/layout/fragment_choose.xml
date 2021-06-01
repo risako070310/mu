@@ -30,7 +30,8 @@
             android:backgroundTint="@color/white"
             android:ems="15"
             android:hint="曲名を入力"
-            android:inputType="textPersonName" />
+            android:inputType="text"
+            android:imeOptions="actionDone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -50,7 +51,7 @@
         android:fontFamily="sans-serif-black"
         android:text="次へ"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="@id/textBox"
         app:layout_constraintStart_toStartOf="@id/textBox"
