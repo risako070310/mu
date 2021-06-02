@@ -9,6 +9,8 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_choose.*
 import kotlinx.coroutines.runBlocking
@@ -18,9 +20,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class ChooseFragment : Fragment() {
+class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
 
     private var token = ""
+    private lateinit var resultData: Data
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +34,9 @@ class ChooseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val resultView: RecyclerView = view.findViewById(R.id.resultView)
+        resultView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
 
         val gson = GsonBuilder().create()
 
@@ -68,17 +74,20 @@ class ChooseFragment : Fragment() {
                     runCatching {
                         musicService.searchMusic("Bearer $token", text.toString(), "track", 5)
                     }.onSuccess {
-                        Log.d("result", it.toString())
+                        if (it.trackData.items[0] != null){
+                            resultView.adapter = ResultAdapter(requireContext(), this@ChooseFragment, it)
+                            resultData = it
+                        }
                     }.onFailure {
                         Log.d("error", it.message.toString())
                     }
                 }
             }
         }
+    }
 
-        nextButton.setOnClickListener {
-            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to "aaa")
-            findNavController().navigate(R.id.choose_to_song, bundle)
-        }
+    override fun onItemClick(view: View, position: Int) {
+        val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to resultData.trackData.items[position].id)
+        findNavController().navigate(R.id.choose_to_song, bundle)
     }
 }

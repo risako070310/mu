@@ -16,7 +16,7 @@ import com.google.firebase.firestore.Query
 
 class ListFragment : Fragment() {
 
-    private lateinit var viewAdapter: FirestoreRecyclerAdapter<User, ViewHolder>
+    private lateinit var viewAdapter: FirestoreRecyclerAdapter<User, ListViewHolder>
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -41,8 +41,8 @@ class ListFragment : Fragment() {
             .build()
 
         viewAdapter =
-            object : FirestoreRecyclerAdapter<User, ViewHolder>(options) {
-                override fun onBindViewHolder(holder: ViewHolder, position: Int, model: User) {
+            object : FirestoreRecyclerAdapter<User, ListViewHolder>(options) {
+                override fun onBindViewHolder(holder: ListViewHolder, position: Int, model: User) {
                     holder.nameView.text = model.name
                     holder.songView.text = model.song
                     holder.artistView.text = model.artist
@@ -50,10 +50,10 @@ class ListFragment : Fragment() {
                     holder.imageView.load(model.imageURL)
                 }
 
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
                     val listView = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_list_cell, parent, false)
-                    return ViewHolder(listView)
+                    return ListViewHolder(listView)
                 }
             }
 

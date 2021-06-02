@@ -67,10 +67,12 @@ class SongFragment : Fragment() {
         val musicService = retrofit.create(MusicGet::class.java)
         runBlocking{
             runCatching {
-                musicService.getMusic("Bearer $token" ,songId!!)
+                musicService.getMusic("Bearer $token" , songId!!)
             }
         }.onSuccess {
-            Log.d("music-result", it.toString())
+            songTitle.text = it.name
+            artistName.text = it.album.artists[0].name
+            jacketView.load(it.album.images[0].imageUrl)
         }.onFailure {
             Toast.makeText( context, "失敗してるよ？？？？？？？", Toast.LENGTH_LONG).show()
         }

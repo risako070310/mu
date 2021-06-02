@@ -37,24 +37,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resultView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/textBox"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/textBox"
-        app:layout_constraintTop_toBottomOf="@id/textBox" />
+        app:layout_constraintEnd_toEndOf="@id/textBox"
+        app:layout_constraintTop_toBottomOf="@id/textBox"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/nextButton"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/blue_dark"
-        android:fontFamily="sans-serif-black"
-        android:text="次へ"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="@id/textBox"
-        app:layout_constraintStart_toStartOf="@id/textBox"
-        app:layout_constraintTop_toBottomOf="@id/resultView" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/nextButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:backgroundTint="@color/blue_dark"-->
+<!--        android:fontFamily="sans-serif-black"-->
+<!--        android:text="次へ"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        app:cornerRadius="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/textBox"-->
+<!--        app:layout_constraintStart_toStartOf="@id/textBox"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/resultView" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

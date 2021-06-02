@@ -10,5 +10,5 @@ interface MusicGet {
     suspend fun getMusic(
         @Header("Authorization") auth: String,
         @Path("trackId") trackId: String,
-    ): List<Tracks>
+    ): SongData
 }
