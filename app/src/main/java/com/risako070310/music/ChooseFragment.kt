@@ -2,23 +2,21 @@ package com.risako070310.music
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_choose.*
 import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
-import okhttp3.ResponseBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
+
 
 class ChooseFragment : Fragment() {
 
@@ -26,7 +24,7 @@ class ChooseFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_choose, container, false)
     }
@@ -36,25 +34,32 @@ class ChooseFragment : Fragment() {
 
         val gson = GsonBuilder().create()
 
-        val client = OkHttpClient()
+        val httpLogging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val httpClientBuilder = OkHttpClient.Builder().addInterceptor(httpLogging).build()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.spotify.com/")
-            .client(client)
+        val tokenRetrofit = Retrofit.Builder()
+            .baseUrl("https://accounts.spotify.com/")
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(httpClientBuilder)
             .build()
 
-        val requestToken = retrofit.create(TokenRequest::class.java)
+        val requestToken = tokenRetrofit.create(TokenRequest::class.java)
         runBlocking{
             runCatching {
                 requestToken.getToken("client_credentials")
             }.onSuccess{
-                token = it
-                Log.d("token-result", it)
+                token = it.token
+                Log.d("token-result", token)
             }.onFailure {
                 Log.d("token-error", it.message.toString())
             }
         }
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.spotify.com/")
+            .client(httpClientBuilder)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
 
         val musicService = retrofit.create(MusicSearch::class.java)
 
@@ -62,7 +67,7 @@ class ChooseFragment : Fragment() {
             if(text != null) {
                 runBlocking {
                     runCatching {
-                        musicService.searchMusic(text.toString(), "track", 5)
+                        musicService.searchMusic("Bearer $token", text.toString(), "track", 5)
                     }.onSuccess {
                         Log.d("result", it.toString())
                     }.onFailure {
@@ -76,17 +81,5 @@ class ChooseFragment : Fragment() {
             val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to "aaa")
             findNavController().navigate(R.id.choose_to_song, bundle)
         }
-    }
-}
-
-class RawJsonInterceptor : Interceptor {
-    @Throws(IOException::class)
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        val response = chain.proceed(request)
-        val rawJson: String = response.body.toString()
-        Log.d("raw json", String.format("raw JSON response is: %s", rawJson))
-        return response.newBuilder()
-            .body(ResponseBody.create(response.body!!.contentType(), rawJson)).build()
     }
 }
