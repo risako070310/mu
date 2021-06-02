@@ -49,7 +49,6 @@ class ChooseFragment : Fragment() {
                 requestToken.getToken("client_credentials")
             }.onSuccess{
                 token = it.token
-                Log.d("token-result", token)
             }.onFailure {
                 Log.d("token-error", it.message.toString())
             }

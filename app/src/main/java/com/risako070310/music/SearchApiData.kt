@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class Data(
-    @SerializedName("tracks") val tracks: Tracks
+    @SerializedName("tracks") val trackData: Tracks
 )
 
 data class Tracks(
@@ -12,7 +12,7 @@ data class Tracks(
 )
 
 data class Items(
-    @SerializedName("albums") val album: Album
+    val album: Album
 )
 
 data class Album(
