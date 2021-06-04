@@ -1,7 +1,5 @@
-package com.risako070310.music
+package com.risako070310.music.main
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +11,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.risako070310.music.recycler.ListAdapter
+import com.risako070310.music.recycler.ListViewHolder
+import com.risako070310.music.R
+import com.risako070310.music.dataclass.User
 
 
 class ListFragment : Fragment() {

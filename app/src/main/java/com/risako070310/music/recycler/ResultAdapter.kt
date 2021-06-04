@@ -1,10 +1,12 @@
-package com.risako070310.music
+package com.risako070310.music.recycler
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.risako070310.music.R
+import com.risako070310.music.dataclass.Data
 
 class ResultAdapter(
     private val context: Context,
