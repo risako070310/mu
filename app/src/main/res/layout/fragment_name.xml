@@ -7,6 +7,26 @@
     android:background="@color/bg_gray"
     tools:context=".login.NameFragment">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_margin="24dp"
+        android:id="@+id/image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="とっておきの1曲を届けよう。\n音楽に想いを添えて、みんなに。"
+        android:textSize="22sp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/font"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textBox"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -30,6 +50,7 @@
             android:backgroundTint="@color/white"
             android:ems="15"
             android:hint="名前を入力"
+            android:fontFamily="@font/font"
             android:inputType="text"
             android:imeOptions="actionDone"
             android:maxLength="12" />
@@ -43,10 +64,10 @@
         android:layout_height="60dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/blue_dark"
-        android:fontFamily="sans-serif-black"
-        android:text="次へ"
+        android:text="はじめる"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="@font/font"
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="@id/textBox"
         app:layout_constraintStart_toStartOf="@id/textBox"
