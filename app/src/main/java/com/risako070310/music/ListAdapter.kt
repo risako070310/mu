@@ -1,5 +1,7 @@
 package com.risako070310.music
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import coil.api.load
@@ -15,6 +17,10 @@ class ListAdapter internal constructor(options: FirestoreRecyclerOptions<User>) 
         holder.artistView.text = model.artist
         holder.commentView.text = model.comment
         holder.imageView.load(model.imageURL)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(model.songURL))
+            it.context.startActivity(intent)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
