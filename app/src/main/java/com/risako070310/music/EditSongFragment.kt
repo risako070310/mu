@@ -6,36 +6,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.widget.doOnTextChanged
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.fragment_choose.*
+import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
-
+class EditSongFragment : Fragment() {
     private var token = ""
-    private lateinit var resultData: Data
+
+    lateinit var song: String
+    lateinit var artist: String
+    lateinit var songUrl: String
+    lateinit var imageUrl: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_choose, container, false)
+        return inflater.inflate(R.layout.fragment_song, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val resultView: RecyclerView = view.findViewById(R.id.resultView)
-        resultView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+        nextButton.isClickable = false
+        nextButton.isVisible = false
+
+        val songId = arguments?.getString("songId")
 
         val gson = GsonBuilder().create()
 
@@ -49,11 +53,12 @@ class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
             .build()
 
         val requestToken = tokenRetrofit.create(TokenRequest::class.java)
-        runBlocking{
+        runBlocking {
             runCatching {
                 requestToken.getToken("client_credentials")
-            }.onSuccess{
+            }.onSuccess {
                 token = it.token
+                Log.d("token-result", token)
             }.onFailure {
                 Log.d("token-error", it.message.toString())
             }
@@ -65,26 +70,40 @@ class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        val musicService = retrofit.create(MusicSearch::class.java)
-
-        songEditText.doOnTextChanged { text, _, _, _ ->
-            if(text != null) {
-                runBlocking {
-                    runCatching {
-                        musicService.searchMusic("Bearer $token", "ja;q=1", text.toString(), "track", 10)
-                    }.onSuccess {
-                        resultView.adapter = ResultAdapter(requireContext(), this@ChooseFragment, it)
-                        resultData = it
-                    }.onFailure {
-                        Log.d("error", it.message.toString())
-                    }
-                }
+        val musicService = retrofit.create(MusicGet::class.java)
+        runBlocking {
+            runCatching {
+                musicService.getMusic("Bearer $token", "ja;q=1", songId!!)
             }
+        }.onSuccess {
+            songTitle.text = it.name
+            artistName.text = it.album.artists[0].name
+            jacketView.load(it.album.images[0].imageUrl)
+            setVar(it)
+
+            nextButton.isClickable = true
+            nextButton.isVisible = true
+        }.onFailure {
+            Log.d("error", it.message.toString())
+            nextButton.isClickable = false
+            nextButton.isVisible = false
+        }
+
+        nextButton.setOnClickListener {
+            val bundle = bundleOf(
+                "name" to arguments?.getString("name"),
+                "song" to song,
+                "artist" to artist,
+                "songUrl" to songUrl,
+                "imageUrl" to imageUrl)
+            findNavController().navigate(R.id.edit_song_to_comment, bundle)
         }
     }
 
-    override fun onItemClick(view: View, position: Int) {
-        val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to resultData.trackData.items[position].id)
-        findNavController().navigate(R.id.choose_to_song, bundle)
+    private fun setVar(data: SongData) {
+        song = data.name
+        artist = data.album.artists[0].name
+        songUrl = data.link.songURL
+        imageUrl = data.album.images[0].imageUrl
     }
 }
