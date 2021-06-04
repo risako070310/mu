@@ -38,7 +38,7 @@ class ResultAdapter(
 
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         holder.let {
-            it.songView.text = data.trackData.items[position].album.name
+            it.songView.text = data.trackData.items[position].name
             it.artistView.text = data.trackData.items[position].album.artist[0].name
             it.imageView.load(data.trackData.items[position].album.images[0].imageUrl)
         }

@@ -8,6 +8,7 @@ interface MusicSearch {
     @GET("v1/search")
     suspend fun searchMusic(
         @Header("Authorization") auth: String,
+        @Header("Accept-Language") lang:String,
         @Query("q") q: String,
         @Query("type") type: String,
         @Query("limit") limit: Int,

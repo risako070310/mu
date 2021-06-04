@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,22 +39,7 @@ class ListFragment : Fragment() {
             .setQuery(query, User::class.java)
             .build()
 
-        viewAdapter =
-            object : FirestoreRecyclerAdapter<User, ListViewHolder>(options) {
-                override fun onBindViewHolder(holder: ListViewHolder, position: Int, model: User) {
-                    holder.nameView.text = model.name
-                    holder.songView.text = model.song
-                    holder.artistView.text = model.artist
-                    holder.commentView.text = model.comment
-                    holder.imageView.load(model.imageURL)
-                }
-
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-                    val listView = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_list_cell, parent, false)
-                    return ListViewHolder(listView)
-                }
-            }
+        viewAdapter = ListAdapter(options)
 
         recyclerView.apply {
             adapter = viewAdapter

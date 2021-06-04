@@ -13,14 +13,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.android.synthetic.main.fragment_comment.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 class CommentFragment : Fragment() {
 
     private val db = Firebase.firestore
-    private val songId = arguments?.getString("songId")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,21 +33,18 @@ class CommentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val song = "はしりがき"
-        val artist = "マカロニえんぴつ"
-        val imageURL = "https://i.scdn.co/image/ab67616d00001e02651f95448e23830d42f141eb"
-        val spotifyURL = "https://open.spotify.com/track/4rVpueOWFM9jUjZSWt1eNu?si=g19PvA_8SpSTxJYkXif_-Q"
+        AndroidThreeTen.init(this.context)
 
         nextButton.setOnClickListener {
             val localDateTime = LocalDateTime.now()
             val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
             val user = hashMapOf(
                 "name" to arguments?.getString("name"),
-                "song" to song,
-                "artist" to artist,
+                "song" to arguments?.getString("song"),
+                "artist" to arguments?.getString("artist"),
                 "comment" to commentEditText.text.toString(),
-                "imageURL" to imageURL,
-                "songURL" to spotifyURL,
+                "imageURL" to arguments?.getString("imageUrl"),
+                "songURL" to arguments?.getString("songUrl"),
                 "updateTime" to localDateTime.format(dtf)
             )
 

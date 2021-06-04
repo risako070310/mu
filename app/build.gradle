@@ -76,4 +76,7 @@ dependencies {
 
     //picassoの導入
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //ThreeTenABPの導入
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 }

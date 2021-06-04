@@ -9,6 +9,7 @@ interface MusicGet {
     @GET("v1/tracks/{trackId}")
     suspend fun getMusic(
         @Header("Authorization") auth: String,
+        @Header("Accept-Language") lang:String,
         @Path("trackId") trackId: String,
     ): SongData
 }

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class SongData(
     @SerializedName("album") val album: SongAlbum,
     val name: String,
-    @SerializedName("linked_from") val link: Links
+    @SerializedName("external_urls") val link: Links
 )
 
 data class SongAlbum(
@@ -14,6 +14,5 @@ data class SongAlbum(
 )
 
 data class Links(
-    @SerializedName("href") val songURL: String,
-    val id: String
+    @SerializedName("spotify") val songURL: String
 )

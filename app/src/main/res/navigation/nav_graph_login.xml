@@ -49,7 +49,19 @@
             app:argType="string"
             android:defaultValue="name" />
         <argument
-            android:name="songId"
+            android:name="song"
+            app:argType="string"
+            android:defaultValue="id" />
+        <argument
+            android:name="artist"
+            app:argType="string"
+            android:defaultValue="id" />
+        <argument
+            android:name="songUrl"
+            app:argType="string"
+            android:defaultValue="id" />
+        <argument
+            android:name="imageUrl"
             app:argType="string"
             android:defaultValue="id" />
     </fragment>

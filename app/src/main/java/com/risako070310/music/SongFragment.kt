@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import coil.api.load
 import com.google.gson.FieldNamingPolicy
@@ -23,6 +24,11 @@ class SongFragment : Fragment() {
 
     private var token = ""
 
+    lateinit var song: String
+    lateinit var artist: String
+    lateinit var songUrl: String
+    lateinit var imageUrl: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +38,9 @@ class SongFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        nextButton.isClickable = false
+        nextButton.isVisible = false
 
         val songId = arguments?.getString("songId")
 
@@ -47,10 +56,10 @@ class SongFragment : Fragment() {
             .build()
 
         val requestToken = tokenRetrofit.create(TokenRequest::class.java)
-        runBlocking{
+        runBlocking {
             runCatching {
                 requestToken.getToken("client_credentials")
-            }.onSuccess{
+            }.onSuccess {
                 token = it.token
                 Log.d("token-result", token)
             }.onFailure {
@@ -65,21 +74,39 @@ class SongFragment : Fragment() {
             .build()
 
         val musicService = retrofit.create(MusicGet::class.java)
-        runBlocking{
+        runBlocking {
             runCatching {
-                musicService.getMusic("Bearer $token" , songId!!)
+                musicService.getMusic("Bearer $token", "ja;q=1", songId!!)
             }
         }.onSuccess {
             songTitle.text = it.name
             artistName.text = it.album.artists[0].name
             jacketView.load(it.album.images[0].imageUrl)
+            setVar(it)
+
+            nextButton.isClickable = true
+            nextButton.isVisible = true
         }.onFailure {
-            Toast.makeText( context, "失敗してるよ？？？？？？？", Toast.LENGTH_LONG).show()
+            Log.d("error", it.message.toString())
+            nextButton.isClickable = false
+            nextButton.isVisible = false
         }
 
         nextButton.setOnClickListener {
-            val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to songId)
+            val bundle = bundleOf(
+                "name" to arguments?.getString("name"),
+                "song" to song,
+                "artist" to artist,
+                "songUrl" to songUrl,
+                "imageUrl" to imageUrl)
             findNavController().navigate(R.id.song_to_comment, bundle)
         }
+    }
+
+    private fun setVar(data: SongData) {
+        song = data.name
+        artist = data.album.artists[0].name
+        songUrl = data.link.songURL
+        imageUrl = data.album.images[0].imageUrl
     }
 }
