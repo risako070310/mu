@@ -1,4 +1,4 @@
-package com.risako070310.music
+package com.risako070310.music.recycler
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import coil.api.load
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.risako070310.music.R
+import com.risako070310.music.dataclass.User
 
 class ListAdapter internal constructor(options: FirestoreRecyclerOptions<User>) :
     FirestoreRecyclerAdapter<User, ListViewHolder>(options) {

@@ -1,4 +1,4 @@
-package com.risako070310.music
+package com.risako070310.music.dataclass
 
 import com.google.gson.annotations.SerializedName
 

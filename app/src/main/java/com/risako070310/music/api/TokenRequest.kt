@@ -1,5 +1,6 @@
-package com.risako070310.music
+package com.risako070310.music.api
 
+import com.risako070310.music.dataclass.Token
 import retrofit2.http.*
 
 interface TokenRequest {

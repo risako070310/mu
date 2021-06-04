@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.risako070310.music.UserFragment"
+        android:name="com.risako070310.music.main.UserFragment"
         tools:layout="@layout/fragment_user">
         <action
             android:id="@+id/user_to_list"
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.risako070310.music.ListFragment"
+        android:name="com.risako070310.music.main.ListFragment"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/list_to_user"

@@ -1,4 +1,4 @@
-package com.risako070310.music
+package com.risako070310.music.dataclass
 
 data class User(
     val name: String = "",

@@ -1,4 +1,4 @@
-package com.risako070310.music
+package com.risako070310.music.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.risako070310.music.R
 import kotlinx.android.synthetic.main.fragment_name.*
 
 class NameFragment : Fragment() {

@@ -1,16 +1,20 @@
-package com.risako070310.music
+package com.risako070310.music.login
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.api.load
 import com.google.gson.GsonBuilder
+import com.risako070310.music.R
+import com.risako070310.music.api.MusicGet
+import com.risako070310.music.api.TokenRequest
+import com.risako070310.music.dataclass.SongData
 import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -18,7 +22,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class EditSongFragment : Fragment() {
+class SongFragment : Fragment() {
+
     private var token = ""
 
     lateinit var song: String
@@ -96,7 +101,7 @@ class EditSongFragment : Fragment() {
                 "artist" to artist,
                 "songUrl" to songUrl,
                 "imageUrl" to imageUrl)
-            findNavController().navigate(R.id.edit_song_to_comment, bundle)
+            findNavController().navigate(R.id.song_to_comment, bundle)
         }
     }
 

@@ -1,8 +1,8 @@
-package com.risako070310.music
+package com.risako070310.music.api
 
+import com.risako070310.music.dataclass.SongData
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.Path
 
 interface MusicGet {

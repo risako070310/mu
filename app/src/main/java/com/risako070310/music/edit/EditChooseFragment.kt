@@ -1,4 +1,4 @@
-package com.risako070310.music
+package com.risako070310.music.edit
 
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
+import com.risako070310.music.R
+import com.risako070310.music.recycler.ResultAdapter
+import com.risako070310.music.recycler.ResultViewHolder
+import com.risako070310.music.api.MusicSearch
+import com.risako070310.music.api.TokenRequest
+import com.risako070310.music.dataclass.Data
 import kotlinx.android.synthetic.main.fragment_choose.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient

@@ -1,9 +1,11 @@
-package com.risako070310.music
+package com.risako070310.music.login
 
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.risako070310.music.main.MainActivity
+import com.risako070310.music.R
 
 class LoginActivity : AppCompatActivity() {
 

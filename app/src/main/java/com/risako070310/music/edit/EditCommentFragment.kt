@@ -1,4 +1,4 @@
-package com.risako070310.music
+package com.risako070310.music.edit
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.risako070310.music.main.MainActivity
+import com.risako070310.music.R
 import kotlinx.android.synthetic.main.fragment_comment.*
 import kotlinx.android.synthetic.main.fragment_comment.nextButton
 import org.threeten.bp.LocalDateTime
