@@ -104,4 +104,20 @@
             app:layout_constraintStart_toStartOf="@id/card_comment" />
     </androidx.cardview.widget.CardView>
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/blue_dark"
+        android:fontFamily="sans-serif-black"
+        android:text="編集"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="@id/card_comment"
+        app:layout_constraintStart_toStartOf="@id/card_comment"
+        app:layout_constraintTop_toBottomOf="@id/card_comment" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

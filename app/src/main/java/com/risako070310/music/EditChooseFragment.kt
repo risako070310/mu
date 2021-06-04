@@ -19,7 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
+class EditChooseFragment : Fragment(), ResultViewHolder.ItemClickListener {
 
     private var token = ""
     private lateinit var resultData: Data
@@ -73,7 +73,7 @@ class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
                     runCatching {
                         musicService.searchMusic("Bearer $token", "ja;q=1", text.toString(), "track", 10)
                     }.onSuccess {
-                        resultView.adapter = ResultAdapter(requireContext(), this@ChooseFragment, it)
+                        resultView.adapter = ResultAdapter(requireContext(), this@EditChooseFragment, it)
                         resultData = it
                     }.onFailure {
                         Log.d("error", it.message.toString())
@@ -85,6 +85,7 @@ class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener{
 
     override fun onItemClick(view: View, position: Int) {
         val bundle = bundleOf("name" to arguments?.getString("name"), "songId" to resultData.trackData.items[position].id)
-        findNavController().navigate(R.id.choose_to_song, bundle)
+        findNavController().navigate(R.id.edit_choose_to_song, bundle)
     }
+
 }

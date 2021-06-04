@@ -2,16 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_login"
-    app:startDestination="@id/nameFragment">
+    android:id="@+id/nav_graph_edit"
+    app:startDestination="@id/editNameFragment">
 
     <fragment
-        android:id="@+id/nameFragment"
-        android:name="com.risako070310.music.NameFragment"
+        android:id="@+id/editNameFragment"
+        android:name="com.risako070310.music.EditNameFragment"
         tools:layout="@layout/fragment_name" >
         <action
-            android:id="@+id/name_to_choose"
-            app:destination="@id/chooseFragment"/>
+            android:id="@+id/edit_name_to_choose"
+            app:destination="@id/editChooseFragment"/>
         <argument
             android:name="name"
             app:argType="string"
@@ -19,12 +19,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/chooseFragment"
-        android:name="com.risako070310.music.ChooseFragment"
+        android:id="@+id/editChooseFragment"
+        android:name="com.risako070310.music.EditChooseFragment"
         tools:layout="@layout/fragment_choose" >
         <action
-            android:id="@+id/choose_to_song"
-            app:destination="@id/songFragment" />
+            android:id="@+id/edit_choose_to_song"
+            app:destination="@id/editSongFragment" />
 
         <argument
             android:name="name"
@@ -37,12 +37,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/songFragment"
-        android:name="com.risako070310.music.SongFragment"
+        android:id="@+id/editSongFragment"
+        android:name="com.risako070310.music.EditSongFragment"
         tools:layout="@layout/fragment_song" >
         <action
-            android:id="@+id/song_to_comment"
-            app:destination="@id/commentFragment"/>
+            android:id="@+id/edit_song_to_comment"
+            app:destination="@id/editCommentFragment"/>
 
         <argument
             android:name="name"
@@ -67,8 +67,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/commentFragment"
-        android:name="com.risako070310.music.CommentFragment"
+        android:id="@+id/editCommentFragment"
+        android:name="com.risako070310.music.EditCommentFragment"
         tools:layout="@layout/fragment_comment" >
 
     </fragment>
