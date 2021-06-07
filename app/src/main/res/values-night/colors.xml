@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg_gray">#FFE6E6E6</color>
+    <color name="bg_gray">#FF505050</color>
     <color name="blue_dark">#FF3F5377</color>
     <color name="blue_primary">#FF7BA1EB</color>
-    <color name="black">#FF505050</color>
+    <color name="black">#FFE6E6E6</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="text_dark">#FF6C6C6C</color>
-    <color name="text_light">#FF898989</color>
+    <color name="text_dark">#FFEFEFEF</color>
+    <color name="text_light">#FFDEDEDE</color>
 </resources>

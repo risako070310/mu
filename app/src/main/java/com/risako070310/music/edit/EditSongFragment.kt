@@ -93,6 +93,10 @@ class EditSongFragment : Fragment() {
             nextButton.isVisible = false
         }
 
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.edit_song_backto_choose)
+        }
+
         nextButton.setOnClickListener {
             val bundle = bundleOf(
                 "name" to arguments?.getString("name"),

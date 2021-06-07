@@ -7,5 +7,5 @@
     <item
         android:id="@+id/userFragment"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="User"/>
+        android:title="Mypage"/>
 </menu>

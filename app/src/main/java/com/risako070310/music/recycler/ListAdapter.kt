@@ -19,7 +19,7 @@ class ListAdapter internal constructor(options: FirestoreRecyclerOptions<User>) 
         holder.artistView.text = model.artist
         holder.commentView.text = model.comment
         holder.imageView.load(model.imageURL)
-        holder.itemView.setOnClickListener {
+        holder.imageView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(model.songURL))
             it.context.startActivity(intent)
         }

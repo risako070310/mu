@@ -44,6 +44,10 @@
             android:id="@+id/edit_song_to_comment"
             app:destination="@id/editCommentFragment"/>
 
+        <action
+            android:id="@+id/edit_song_backto_choose"
+            app:destination="@id/editChooseFragment"/>
+
         <argument
             android:name="name"
             app:argType="string"

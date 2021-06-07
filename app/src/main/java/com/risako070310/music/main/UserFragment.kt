@@ -52,7 +52,6 @@ class UserFragment : Fragment() {
         editButton.setOnClickListener{
             val intent = Intent(this.context, EditActivity::class.java)
             startActivity(intent)
-            requireActivity().finish()
         }
     }
 

@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
         if (userId != null && userId != "hogehoge") {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }
