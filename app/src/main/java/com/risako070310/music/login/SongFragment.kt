@@ -1,11 +1,14 @@
 package com.risako070310.music.login
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -106,6 +109,14 @@ class SongFragment : Fragment() {
                 "songUrl" to songUrl,
                 "imageUrl" to imageUrl)
             findNavController().navigate(R.id.song_to_comment, bundle)
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this){
+            findNavController().navigate(R.id.song_backto_choose)
         }
     }
 

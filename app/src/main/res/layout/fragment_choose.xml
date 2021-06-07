@@ -55,6 +55,7 @@
             android:backgroundTint="@color/white"
             android:ems="15"
             android:hint="曲を調べよう"
+            android:textColor="@color/input_color"
             android:fontFamily="@font/font"
             android:inputType="text"
             android:imeOptions="actionDone"/>

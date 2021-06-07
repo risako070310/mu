@@ -56,6 +56,7 @@
             android:ems="15"
             android:hint="想いを込めたひとこと"
             android:fontFamily="@font/font"
+            android:textColor="@color/input_color"
             android:inputType="text"
             android:imeOptions="actionDone"
             android:maxLength="56" />

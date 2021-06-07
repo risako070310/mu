@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:textColor="@color/input_color"
             android:ems="15"
             android:hint="名前を入力(公開されます)"
             android:fontFamily="@font/font"
