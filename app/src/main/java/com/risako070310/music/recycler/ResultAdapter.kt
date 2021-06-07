@@ -2,6 +2,7 @@ package com.risako070310.music.recycler
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
@@ -30,8 +31,8 @@ class ResultAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.result_list_cell, parent, false)
-        view.setOnClickListener{
-            resultView?.let{
+        view.setOnClickListener {
+            resultView?.let {
                 itemClickListener.onItemClick(view, it.getChildAdapterPosition(view))
             }
         }
@@ -47,6 +48,6 @@ class ResultAdapter(
     }
 
     override fun getItemCount(): Int {
-        return data.hashCode()
+        return data.trackData.items.size
     }
 }
