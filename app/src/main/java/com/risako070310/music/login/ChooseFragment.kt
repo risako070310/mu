@@ -77,7 +77,7 @@ class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener {
             if(text != null) {
                 runBlocking {
                     runCatching {
-                        musicService.searchMusic("Bearer $token", "ja;q=1", text.toString(), "track", 5)
+                        musicService.searchMusic("Bearer $token", "ja;q=1", text.toString(), "track", 10)
                     }.onSuccess {
                         resultView.adapter = ResultAdapter(requireContext(), this@ChooseFragment, it)
                         resultData = it

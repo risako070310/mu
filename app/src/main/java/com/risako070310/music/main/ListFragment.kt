@@ -38,6 +38,7 @@ class ListFragment : Fragment() {
         val query = FirebaseFirestore.getInstance()
             .collection("users")
             .orderBy("updateTime", Query.Direction.DESCENDING)
+            .limit(20)
 
         val options = FirestoreRecyclerOptions.Builder<User>()
             .setQuery(query, User::class.java)

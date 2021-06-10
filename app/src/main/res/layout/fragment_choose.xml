@@ -20,7 +20,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="今のお気に入り、気分はどの曲？\n1曲のみ選曲できます"
+        android:text="今のお気に入り、気分はどの曲？\n1曲のみ選ぶことができます\n(曲名とアーティスト名で検索)"
         android:textSize="18sp"
         android:fontFamily="@font/font"
         android:id="@+id/text"
