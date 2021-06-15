@@ -68,18 +68,27 @@ class EditCommentFragment : Fragment() {
                     "imageURL" to arguments?.getString("imageUrl"),
                     "songURL" to arguments?.getString("songUrl"),
                     "updateTime" to localDateTime.format(dtf),
-                    "locationSwitch" to "false"
+                    "locationSwitch" to "false",
+                    "showPost" to "true"
                 )
 
-                db.collection("users").document(userId).set(user)
-                    .addOnSuccessListener { _ ->
-                        Toast.makeText(this.context, "更新しました", Toast.LENGTH_SHORT).show()
+                db.collection("users").add(user)
+                    .addOnSuccessListener { document ->
+                        val editor = userData.edit()
+                        editor.putString("user", document.id)
+                        editor.apply()
 
-                        val intent = Intent(this.context, MainActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().finish()
-                    }.addOnFailureListener {
-                        Toast.makeText(this.context, "更新失敗", Toast.LENGTH_SHORT).show()
+                        val updates = hashMapOf<String, Any>("showPost" to "false")
+                        db.collection("users").document(userId).update(updates)
+                            .addOnSuccessListener { _ ->
+                                Toast.makeText(this.context, "更新しました", Toast.LENGTH_SHORT).show()
+
+                                val intent = Intent(this.context, MainActivity::class.java)
+                                startActivity(intent)
+                                requireActivity().finish()
+                            }.addOnFailureListener {
+                                Toast.makeText(this.context, "更新失敗", Toast.LENGTH_SHORT).show()
+                            }
                     }
             }
         }

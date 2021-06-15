@@ -51,7 +51,8 @@ class CommentFragment : Fragment() {
                     "imageURL" to arguments?.getString("imageUrl"),
                     "songURL" to arguments?.getString("songUrl"),
                     "updateTime" to localDateTime.format(dtf),
-                    "locationSwitch" to "false"
+                    "locationSwitch" to "false",
+                    "showPost" to "true"
                 )
 
                 db.collection("users")

@@ -37,6 +37,7 @@ class ListFragment : Fragment() {
 
         val query = FirebaseFirestore.getInstance()
             .collection("users")
+            .whereEqualTo("showPost", "true")
             .orderBy("updateTime", Query.Direction.DESCENDING)
             .limit(20)
 
