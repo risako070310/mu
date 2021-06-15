@@ -55,29 +55,33 @@ class EditCommentFragment : Fragment() {
         AndroidThreeTen.init(this.context)
 
         nextButton.setOnClickListener {
-            val localDateTime = LocalDateTime.now()
-            val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
-            val user = hashMapOf(
-                "name" to arguments?.getString("name"),
-                "song" to arguments?.getString("song"),
-                "artist" to arguments?.getString("artist"),
-                "comment" to commentEditText.text.toString(),
-                "imageURL" to arguments?.getString("imageUrl"),
-                "songURL" to arguments?.getString("songUrl"),
-                "updateTime" to localDateTime.format(dtf)
+            if(commentEditText.text!!.isEmpty()){
+                commentEditText.error = "1文字以上入力してください"
+            } else {
+                val localDateTime = LocalDateTime.now()
+                val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
+                val user = hashMapOf(
+                    "name" to arguments?.getString("name"),
+                    "song" to arguments?.getString("song"),
+                    "artist" to arguments?.getString("artist"),
+                    "comment" to commentEditText.text.toString(),
+                    "imageURL" to arguments?.getString("imageUrl"),
+                    "songURL" to arguments?.getString("songUrl"),
+                    "updateTime" to localDateTime.format(dtf),
+                    "locationSwitch" to "false"
+                )
 
-            )
+                db.collection("users").document(userId).set(user)
+                    .addOnSuccessListener { _ ->
+                        Toast.makeText(this.context, "更新しました", Toast.LENGTH_SHORT).show()
 
-            db.collection("users").document(userId).set(user)
-                .addOnSuccessListener { _ ->
-                    Toast.makeText(this.context, "更新しました", Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(this.context, MainActivity::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
-                }.addOnFailureListener {
-                    Toast.makeText(this.context, "更新失敗", Toast.LENGTH_SHORT).show()
-                }
+                        val intent = Intent(this.context, MainActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }.addOnFailureListener {
+                        Toast.makeText(this.context, "更新失敗", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 }

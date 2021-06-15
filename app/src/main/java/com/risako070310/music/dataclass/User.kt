@@ -7,4 +7,6 @@ data class User(
     val comment: String = "",
     val imageURL: String = "",
     val songURL: String = "",
+    val location: Int = 0,
+    val locationSwitch: String = ""
 )

@@ -12,6 +12,21 @@
         <action
             android:id="@+id/user_to_list"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/user_to_location"
+            app:destination="@id/locationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.risako070310.music.main.LocationFragment"
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/location_to_user"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/location_to_list"
+            app:destination="@id/listFragment" />
     </fragment>
 
     <fragment
@@ -21,5 +36,8 @@
         <action
             android:id="@+id/list_to_user"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/list_to_location"
+            app:destination="@id/locationFragment" />
     </fragment>
 </navigation>

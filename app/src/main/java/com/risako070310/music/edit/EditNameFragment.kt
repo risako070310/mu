@@ -46,9 +46,13 @@ class EditNameFragment : Fragment(){
             }
 
         nextButton.setOnClickListener {
-            val name = nameEditText.text.toString()
-            val bundle = bundleOf("name" to name)
-            findNavController().navigate(R.id.edit_name_to_choose, bundle)
+            if (nameEditText.text!!.isEmpty()){
+                nameEditText.error = "名前の入力は必須です"
+            } else {
+                val name = nameEditText.text.toString()
+                val bundle = bundleOf("name" to name)
+                findNavController().navigate(R.id.edit_name_to_choose, bundle)
+            }
         }
     }
 }
