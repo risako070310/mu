@@ -1,11 +1,16 @@
 package com.risako070310.music.main
 
 import android.Manifest.*
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +24,12 @@ import com.google.firebase.ktx.Firebase
 import com.risako070310.music.R
 import kotlinx.android.synthetic.main.fragment_location.*
 
-class LocationFragment : Fragment() {
+class LocationFragment : Fragment() , LocationListener {
 
     private val db = Firebase.firestore
     private lateinit var userId:String
+
+    private lateinit var locationManager: LocationManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +61,11 @@ class LocationFragment : Fragment() {
 
         locationSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkPermission()
+                locationStart()
+            } else {
+                val updates = hashMapOf<String, Any>("locationSwitch" to "false")
+                db.collection("users").document(userId).update(updates)
             }
-            val updates = hashMapOf<String, Any>("locationSwitch" to isChecked.toString())
-            db.collection("users").document(userId).update(updates)
         }
     }
 
@@ -110,7 +118,35 @@ class LocationFragment : Fragment() {
                 }
                 .setCancelable(true)
                 .show()
+        } else {
+            val updates = hashMapOf<String, Any>("locationSwitch" to "true")
+            db.collection("users").document(userId).update(updates)
         }
+    }
+
+    private fun locationStart(){
+        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            val settingsIntent = Intent(ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(settingsIntent)
+        }
+
+        checkPermission()
+
+        locationManager.requestLocationUpdates(
+            LocationManager.GPS_PROVIDER,
+            1000,
+            50f,
+            this)
+    }
+
+    override fun onLocationChanged(location: Location) {
+        val textLati = "Latitude:" + location.latitude
+        text1.text = textLati
+
+        val textLongi = "Longitude:" + location.longitude
+        text2.text = textLongi
     }
 }
 
