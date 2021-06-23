@@ -55,15 +55,21 @@ class LocationFragment : Fragment() , LocationListener {
                     if (user.data?.get("locationSwitch") == "true") {
                         locationSwitch.isChecked = true
                         checkPermission()
+                        locationStart()
                     }
                 }
             }
+
+        info.setOnClickListener {
+            val intent = Intent(requireContext(), InfoActivity::class.java)
+            startActivity(intent)
+        }
 
         locationSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 locationStart()
             } else {
-                val updates = hashMapOf<String, Any>("locationSwitch" to "false")
+                val updates = hashMapOf<String, Any>("locationSwitch" to "false", "locationLati" to "", "locationLongi" to "")
                 db.collection("users").document(userId).update(updates)
             }
         }
@@ -84,7 +90,7 @@ class LocationFragment : Fragment() , LocationListener {
                 startActivity(intent)
             } else {
                 locationSwitch.isChecked = false
-                val updates = hashMapOf<String, Any>("locationSwitch" to "false")
+                val updates = hashMapOf<String, Any>("locationSwitch" to "false", "locationLati" to "", "locationLongi" to "")
                 db.collection("users").document(userId).update(updates)
             }
         }
@@ -97,7 +103,7 @@ class LocationFragment : Fragment() , LocationListener {
             ) == PackageManager.PERMISSION_DENIED
         ) {
             locationSwitch.isChecked = false
-            val updates = hashMapOf<String, Any>("locationSwitch" to "false")
+            val updates = hashMapOf<String, Any>("locationSwitch" to "false", "locationLati" to "", "locationLongi" to "")
             db.collection("users").document(userId).update(updates)
 
             ActivityCompat.requestPermissions(
@@ -121,6 +127,8 @@ class LocationFragment : Fragment() , LocationListener {
         } else {
             val updates = hashMapOf<String, Any>("locationSwitch" to "true")
             db.collection("users").document(userId).update(updates)
+
+            locationStart()
         }
     }
 
@@ -132,13 +140,18 @@ class LocationFragment : Fragment() , LocationListener {
             startActivity(settingsIntent)
         }
 
-        checkPermission()
-
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            1000,
-            50f,
-            this)
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000,
+                50f,
+                this
+            )
+        }
     }
 
     override fun onLocationChanged(location: Location) {
@@ -147,6 +160,9 @@ class LocationFragment : Fragment() , LocationListener {
 
         val textLongi = "Longitude:" + location.longitude
         text2.text = textLongi
+
+        val updates = hashMapOf<String, Any>("locationLati" to location.latitude, "locationLongi" to location.longitude)
+        db.collection("users").document(userId).update(updates)
     }
 }
 
