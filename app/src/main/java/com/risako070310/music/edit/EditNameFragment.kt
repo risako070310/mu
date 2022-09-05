@@ -12,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.risako070310.music.R
-import kotlinx.android.synthetic.main.fragment_name.*
+import com.risako070310.music.databinding.FragmentNameBinding
 
 class EditNameFragment : Fragment(){
+
+    lateinit var binding: FragmentNameBinding
 
     val db = Firebase.firestore
 
@@ -22,8 +24,9 @@ class EditNameFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_name, container, false)
+    ): View {
+        binding = FragmentNameBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,13 +43,13 @@ class EditNameFragment : Fragment(){
             .addOnCompleteListener {
                 val user = it.result
                 if(user != null && user.data != null){
-                    nameEditText.setText(user.data?.get("name").toString())
+                    binding.nameEditText.setText(user.data?.get("name").toString())
                 }
 
             }
 
-        nextButton.setOnClickListener {
-            val name = nameEditText.text.toString()
+        binding.nextButton.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
             val bundle = bundleOf("name" to name)
             findNavController().navigate(R.id.edit_name_to_choose, bundle)
         }

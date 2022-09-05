@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import coil.api.load
+import coil.load
 import com.google.gson.GsonBuilder
 import com.risako070310.music.R
 import com.risako070310.music.api.MusicGet
 import com.risako070310.music.api.TokenRequest
+import com.risako070310.music.databinding.FragmentSongBinding
 import com.risako070310.music.dataclass.SongData
-import kotlinx.android.synthetic.main.fragment_song.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,6 +23,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class SongFragment : Fragment() {
+
+    lateinit var binding: FragmentSongBinding
 
     private var token = ""
 
@@ -34,15 +36,16 @@ class SongFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_song, container, false)
+    ): View {
+        binding = FragmentSongBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nextButton.isClickable = false
-        nextButton.isVisible = false
+        binding.nextButton.isClickable = false
+        binding.nextButton.isVisible = false
 
         val songId = arguments?.getString("songId")
 
@@ -81,24 +84,24 @@ class SongFragment : Fragment() {
                 musicService.getMusic("Bearer $token", "ja;q=1", songId!!)
             }
         }.onSuccess {
-            songTitle.text = it.name
-            artistName.text = it.album.artists[0].name
-            jacketView.load(it.album.images[0].imageUrl)
+            binding.songTitle.text = it.name
+            binding.artistName.text = it.album.artists[0].name
+            binding.jacketView.load(it.album.images[0].imageUrl)
             setVar(it)
 
-            nextButton.isClickable = true
-            nextButton.isVisible = true
+            binding.nextButton.isClickable = true
+            binding.nextButton.isVisible = true
         }.onFailure {
             Log.d("error", it.message.toString())
-            nextButton.isClickable = false
-            nextButton.isVisible = false
+            binding.nextButton.isClickable = false
+            binding.nextButton.isVisible = false
         }
 
-        backButton.setOnClickListener {
+        binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.song_backto_choose)
         }
 
-        nextButton.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             val bundle = bundleOf(
                 "name" to arguments?.getString("name"),
                 "song" to song,

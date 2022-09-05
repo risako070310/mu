@@ -5,15 +5,18 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.risako070310.music.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.risako070310.music.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navController = findNavController(R.id.nav_host_main)
-        setupWithNavController(bottom_navigation, navController)
+        setupWithNavController(binding.bottomNavigation, navController)
     }
 }

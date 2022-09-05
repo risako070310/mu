@@ -17,8 +17,8 @@ import com.risako070310.music.recycler.ResultAdapter
 import com.risako070310.music.recycler.ResultViewHolder
 import com.risako070310.music.api.MusicSearch
 import com.risako070310.music.api.TokenRequest
+import com.risako070310.music.databinding.FragmentChooseBinding
 import com.risako070310.music.dataclass.Data
-import kotlinx.android.synthetic.main.fragment_choose.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,14 +27,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener {
 
+    lateinit var binding: FragmentChooseBinding
+
     private var token = ""
     private lateinit var resultData: Data
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_choose, container, false)
+    ): View {
+        binding = FragmentChooseBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +76,7 @@ class ChooseFragment : Fragment(), ResultViewHolder.ItemClickListener {
 
         val musicService = retrofit.create(MusicSearch::class.java)
 
-        songEditText.doOnTextChanged { text, _, _, _ ->
+        binding.songEditText.doOnTextChanged { text, _, _, _ ->
             if(text != null) {
                 runBlocking {
                     runCatching {

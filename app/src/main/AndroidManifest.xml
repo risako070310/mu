@@ -14,7 +14,9 @@
         android:theme="@style/Theme.Music">
         <activity android:name=".main.MainActivity" />
         <activity android:name=".edit.EditActivity" />
-        <activity android:name=".login.LoginActivity">
+        <activity
+            android:name=".login.LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -8,22 +8,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import coil.api.load
+import coil.load
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.risako070310.music.R
+import com.risako070310.music.databinding.FragmentUserBinding
 import com.risako070310.music.edit.EditActivity
-import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment : Fragment() {
+
+    lateinit var binding: FragmentUserBinding
 
     val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_user, container, false)
+    ): View {
+        binding = FragmentUserBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,16 +42,16 @@ class UserFragment : Fragment() {
             .addOnCompleteListener {
                 val user = it.result
                 if(user != null && user.data != null){
-                    nameView.text = user.data?.get("name").toString()
-                    songView.text = user.data?.get("song").toString()
-                    artistView.text = user.data?.get("artist").toString()
-                    songImageView.load(user.data!!["imageURL"].toString())
-                    commentText.text = user.data?.get("comment").toString()
+                    binding.nameView.text = user.data?.get("name").toString()
+                    binding.songView.text = user.data?.get("song").toString()
+                    binding.artistView.text = user.data?.get("artist").toString()
+                    binding.songImageView.load(user.data!!["imageURL"].toString())
+                    binding.commentText.text = user.data?.get("comment").toString()
                 }
 
             }
 
-        editButton.setOnClickListener{
+        binding.editButton.setOnClickListener{
             val intent = Intent(this.context, EditActivity::class.java)
             startActivity(intent)
         }
